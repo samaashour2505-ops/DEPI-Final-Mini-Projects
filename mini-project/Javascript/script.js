@@ -54,8 +54,9 @@ window.addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Initialize the shopping cart array
+    // 1. Initialize the shopping cart and favorites arrays
     let cart = [];
+    let favorites = [];
 
     // Select the required page elements
     const cartIcon = document.querySelector('.fa-cart-shopping')?.closest('a') || document.querySelector('.fa-cart-shopping');
@@ -66,6 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const qtyValSpan = document.getElementById('qtyVal') || document.getElementById('qtyNumber');
     const decreaseQtyBtn = document.getElementById('decreaseQty');
     const increaseQtyBtn = document.getElementById('increaseQty');
+    
+    // Modal elements
+    const orderModal = document.getElementById('orderModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalCustomerName = document.getElementById('modalCustomerName');
+    const modalCustomerPhone = document.getElementById('modalCustomerPhone');
+    const modalCustomerChef = document.getElementById('modalCustomerChef');
+    const modalItemsList = document.getElementById('modalItemsList');
+    const modalGrandTotal = document.getElementById('modalGrandTotal');
 
     let currentQty = 1;
 
@@ -73,14 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (increaseQtyBtn && decreaseQtyBtn) {
         increaseQtyBtn.addEventListener('click', () => {
             currentQty++;
-
             if (qtyValSpan) qtyValSpan.textContent = currentQty;
         });
 
         decreaseQtyBtn.addEventListener('click', () => {
             if (currentQty > 1) {
                 currentQty--;
-
                 if (qtyValSpan) qtyValSpan.textContent = currentQty;
             }
         });
@@ -95,12 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // A. Automatically select the chosen dish in the order form
             if (dishSelect) {
-                let found = false;
-
                 for (let option of dishSelect.options) {
                     if (option.text.toLowerCase().includes(dishName.toLowerCase()) || option.value.toLowerCase().includes(dishName.toLowerCase())) {
                         option.selected = true;
-                        found = true;
                         break;
                     }
                 }
@@ -110,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 dishSelect.style.borderColor = '#f2a93b';
                 dishSelect.style.boxShadow = '0 0 15px rgba(242, 169, 59, 0.6)';
 
-                // Focus the field to draw attention to it
                 dishSelect.focus();
 
                 setTimeout(() => {
@@ -153,29 +157,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const dishName = card ? card.querySelector('.dish-title, .dish-name').textContent.trim() : '';
 
             if (btn.classList.contains('active')) {
-                // Change the icon to the solid heart style
                 if (icon) {
                     icon.classList.remove('fa-regular');
                     icon.classList.add('fa-solid');
-                } else {
-                    btn.textContent = '♥';
                 }
-
-                // Highlight the favorite button in red
                 btn.style.color = '#ff4757';
-
-                console.log(`Added ${dishName} to favorites! ❤️`);
+                
+                if (dishName && !favorites.includes(dishName)) {
+                    favorites.push(dishName);
+                }
             } else {
-                // Restore the regular heart icon style
                 if (icon) {
                     icon.classList.remove('fa-solid');
                     icon.classList.add('fa-regular');
-                } else {
-                    btn.textContent = '♡';
                 }
-
-                // Reset the favorite button color
                 btn.style.color = '';
+                
+                favorites = favorites.filter(name => name !== dishName);
             }
         });
     });
@@ -185,18 +183,15 @@ document.addEventListener('DOMContentLoaded', () => {
         let totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
         let badge = document.getElementById('cartBadge');
 
-        // Create the badge if it does not already exist
         if (!badge && cartIcon) {
             badge = document.createElement('span');
             badge.id = 'cartBadge';
-
             badge.style.cssText = 'background: #f2a93b; color: #0b1320; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: bold; position: absolute; top: -5px; right: -8px;';
 
             cartIcon.style.position = 'relative';
             cartIcon.appendChild(badge);
         }
 
-        // Display the total quantity of items in the cart
         if (badge) {
             badge.textContent = totalCount;
             badge.style.display = totalCount > 0 ? 'inline-block' : 'none';
@@ -208,63 +203,97 @@ document.addEventListener('DOMContentLoaded', () => {
         cartIcon.addEventListener('click', (e) => {
             e.preventDefault();
 
-            // Notify the user if the cart is empty
             if (cart.length === 0) {
                 alert('Your shopping cart is currently empty!');
             } else {
-                // Prepare the cart details and calculate the total price
                 let details = "🛒 Shopping Cart Contents:\n\n";
                 let grandTotal = 0;
 
                 cart.forEach((item, index) => {
                     let numPrice = parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0;
                     let total = numPrice * item.qty;
-
                     grandTotal += total;
 
-                    details += `${index + 1}. ${item.name} (Quantity: ${item.qty}) - $${total.toFixed(2)}\n`;
+                    let isFav = favorites.includes(item.name) ? " ❤️ [مفضل]" : "";
+                    details += `${index + 1}. ${item.name}${isFav} (Quantity: ${item.qty}) - $${total.toFixed(2)}\n`;
                 });
 
-                // Add the grand total to the cart details
                 details += `\nTotal: $${grandTotal.toFixed(2)}`;
-
                 alert(details);
             }
         });
     }
 
-    // 7. Handle order form submission
+    // 7. Handle order form submission and show Modal
     if (orderForm) {
         orderForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Get the customer's name from the form
-            const nameInput = orderForm.querySelector('input[type="text"]');
-            const name = nameInput ? nameInput.value : 'Dear Customer';
+            const nameInput = orderForm.querySelector('input[placeholder="Your name"], input[type="text"]');
+            const phoneInput = orderForm.querySelector('input[placeholder="Your phone number"], input[type="tel"]');
+            const chefSelect = orderForm.querySelector('select');
 
-            // Display a confirmation message
-            alert(`Thank you, ${name}! Your order has been received successfully and will be prepared shortly.`);
+            if (cart.length === 0 && dishSelect && dishSelect.value) {
+                cart.push({
+                    name: dishSelect.value,
+                    price: "$12.00",
+                    qty: currentQty
+                });
+            }
 
-            // Reset the form and clear the shopping cart
+            if (cart.length === 0) {
+                alert("Please add at least one dish to your order.");
+                return;
+            }
+
+            if (modalCustomerName) modalCustomerName.textContent = nameInput ? nameInput.value : "Guest";
+            if (modalCustomerPhone) modalCustomerPhone.textContent = phoneInput ? phoneInput.value : "N/A";
+            if (modalCustomerChef) modalCustomerChef.textContent = chefSelect ? chefSelect.value || "Default Chef" : "Default Chef";
+            
+            if (modalItemsList) {
+                modalItemsList.innerHTML = "";
+                let grandTotal = 0;
+
+                cart.forEach((item) => {
+                    let numPrice = parseFloat(item.price.replace(/[^0-9.]/g, "")) || 0;
+                    let itemTotal = numPrice * item.qty;
+                    grandTotal += itemTotal;
+
+                    const row = document.createElement("div");
+                    row.className = "modal-item-row";
+                    row.innerHTML = `
+                        <span>${item.name} x${item.qty}</span>
+                        <span>$${itemTotal.toFixed(2)}</span>
+                    `;
+                    modalItemsList.appendChild(row);
+                });
+
+                if (modalGrandTotal) modalGrandTotal.textContent = `$${grandTotal.toFixed(2)}`;
+            }
+
+            if (orderModal) orderModal.classList.add("active");
+        });
+    }
+
+    // Close modal button action
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            if (orderModal) orderModal.classList.remove("active");
             orderForm.reset();
             cart = [];
             updateCartBadge();
-
-            // Reset the quantity counter
             currentQty = 1;
-
             if (qtyValSpan) qtyValSpan.textContent = currentQty;
         });
     }
 
-    // 8 + 9. Filter dishes by category and search query
+    // 8 + 9. Filter dishes by category and search query combined
     const filterTabs = document.querySelectorAll('.filter-tabs .tab-btn');
     const dishCards = document.querySelectorAll('.dishes-grid .dish-card');
     const searchInput = document.getElementById('searchInput') || document.querySelector('.search-box input');
 
     let activeFilter = 'all';
 
-    // Apply the selected category filter and search query together
     function applyFilters() {
         const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
@@ -272,40 +301,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const category = card.getAttribute('data-category') || '';
             const title = card.querySelector('.dish-title, .dish-name').textContent.toLowerCase();
 
-            const matchCategory = activeFilter === 'all' || category === activeFilter;
+            const matchCategory = (activeFilter === 'all' || category === activeFilter);
             const matchSearch = title.includes(query);
 
-            // Show only dishes that match both conditions
             card.style.display = (matchCategory && matchSearch) ? 'flex' : 'none';
         });
     }
 
-    // Handle category filter tab clicks
     filterTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             filterTabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
 
-            // Update the active category filter
             activeFilter = tab.getAttribute('data-filter') || tab.textContent.trim().toLowerCase();
-
             applyFilters();
         });
     });
 
-    // Update the displayed dishes whenever the user types in the search field
     if (searchInput) {
         searchInput.addEventListener('input', applyFilters);
     }
 });
 
-
 // Close the mobile navigation menu after clicking a navigation link
 document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item').forEach(link => {
     link.addEventListener('click', () => {
-        document.getElementById('navbarSupportedContent').classList.remove('show');
+        const navbarCollapse = document.getElementById('navbarSupportedContent');
+        if (navbarCollapse) {
+            navbarCollapse.classList.remove('show');
+        }
     });
 });
-
-
- 
