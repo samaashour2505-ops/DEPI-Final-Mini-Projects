@@ -8,13 +8,18 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  background-color: #0b111e;
+  color: #ffffff;
+  padding: 30px;
 }
 
 .custom-navbar {
   background-color: var(--bg-dark);
   min-height: 80px;
 }
-
 .brand-title {
   color: var(--primary-gold);
   font-size: 1.35rem;
@@ -84,7 +89,6 @@
   color: var(--primary-gold);
 }
 
-
 .video-hero {
   position: relative;
   height: 100vh;
@@ -112,13 +116,12 @@
   min-height: 100%;
   width: auto;
   height: auto;
-  
+
   z-index: 1;
   object-fit: cover;
   will-change: transform;
   transform: translate(-50%, -50%) translateZ(0);
 }
-
 
 .hero-overlay {
   position: absolute;
@@ -136,7 +139,7 @@
 .hero-subtitle {
   font-size: 0.9rem;
   letter-spacing: 4px;
-  color: var(--light-gold);
+  color: var(--light-gold, --primary-gold);
   margin-bottom: 15px;
   text-transform: uppercase;
   font-weight: 500;
@@ -150,7 +153,7 @@
   color: #ffffff;
 }
 .hero-content h1 span {
-  color: var(--primary-gold);
+  color: var(--primary-gold, --primary-gold);
   font-style: italic;
   display: inline-block;
   transition: transform 0.3s ease;
@@ -168,7 +171,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: var(--primary-gold);
+  background-color: var(--primary-gold, --primary-gold);
   color: #000;
   padding: 12px 30px;
   border-radius: 30px;
@@ -189,7 +192,7 @@
 }
 
 .hero-button:hover span {
-  transform: translate(3px, -3px); 
+  transform: translate(3px, -3px);
 }
 .scroll-indicator {
   position: absolute;
@@ -210,10 +213,9 @@
 .scroll-indicator span {
   width: 2px;
   height: 25px;
-  background-color: var(--primary-gold);
+  background-color: var(--primary-gold, --primary-gold);
   animation: scrollBounce 1.5s infinite;
 }
-
 
 @keyframes fadeInUp {
   from {
@@ -226,7 +228,8 @@
   }
 }
 @keyframes scrollBounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
     opacity: 0.3;
   }
@@ -244,39 +247,20 @@
   }
 }
 
-/* General settings */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background-color: #0b111e;
-  color: #ffffff;
-  padding: 30px;
-}
-
-/* Main container for both sections with equal heights */
 .main-container {
   display: flex;
-  align-items: stretch; /* Make both sections exactly the same height */
+  align-items: stretch;
   gap: 25px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* -------------------------------------------------- */
-/* 1. First section: Our Menu (left side) */
-/* -------------------------------------------------- */
 .menu-section {
-  flex: 2.5; /* Takes up more space */
+  flex: 2.5;
   display: flex;
   flex-direction: column;
 }
 
-/* Menu header */
 .menu-header {
   display: flex;
   justify-content: space-between;
@@ -308,7 +292,6 @@ body {
   width: 250px;
 }
 
-/* Filter tabs */
 .filter-tabs {
   display: flex;
   gap: 10px;
@@ -327,19 +310,19 @@ body {
   transition: all 0.3s ease;
 }
 
-.tab-btn.active, .tab-btn:hover {
+.tab-btn.active,
+.tab-btn:hover {
   background-color: #f2a93b;
   color: #0b111e;
   border-color: #f2a93b;
   font-weight: bold;
 }
 
-/* Dish cards grid */
 .dishes-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  flex-grow: 1; /* Expands to fill the remaining space */
+  flex-grow: 1;
 }
 
 .dish-card {
@@ -396,7 +379,7 @@ body {
 }
 
 .dish-footer {
-  margin-top: auto; /* Keeps the price and button at the bottom */
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -419,17 +402,14 @@ body {
   font-size: 16px;
 }
 
-/* -------------------------------------------------- */
-/* 2. Second section: Place Your Order (right side) */
-/* -------------------------------------------------- */
 .order-section {
-  flex: 1; /* Takes up less space */
+  flex: 1;
   background-color: #0d1522;
   border: 1px solid #1a283d;
   border-radius: 16px;
   padding: 25px;
   display: flex;
-  flex-direction: column; /* Arrange the content vertically */
+  flex-direction: column;
 }
 
 .order-header {
@@ -448,11 +428,10 @@ body {
   margin-top: 4px;
 }
 
-/* Order form */
 .order-form {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Makes the form fill the entire section height */
+  flex-grow: 1;
 }
 
 .form-group {
@@ -479,7 +458,6 @@ body {
   outline: none;
 }
 
-/* Row of paired selections (Select Chef / Dish / Quantity) */
 .form-row {
   display: flex;
   gap: 10px;
@@ -515,11 +493,10 @@ body {
   font-size: 13px;
 }
 
-/* Special message field, designed to fill any remaining space */
 .form-group.flex-grow-group {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Expands the text area to keep the button at the very bottom */
+  flex-grow: 1;
 }
 
 .form-group.flex-grow-group textarea {
@@ -528,7 +505,6 @@ body {
   min-height: 80px;
 }
 
-/* Submit order button */
 .submit-btn {
   background-color: #f2a93b;
   color: #0b111e;
@@ -548,22 +524,20 @@ body {
 }
 
 .main-container {
-    margin-top: 60px; /* Add top spacing between this section and the home section */
+  margin-top: 60px;
 }
 
-/* -------------------------------------------------- */
-/* Golden glow hover effects */
-/* -------------------------------------------------- */
-
-/* 1. Golden hover effect and image glow inside cards */
 .dish-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .dish-card:hover {
-  transform: translateY(-5px); /* Move the card slightly upward */
-  border-color: #f2a93b; /* Change the border to gold */
-  box-shadow: 0 8px 25px rgba(242, 169, 59, 0.25); /* Add a golden glow to the card */
+  transform: translateY(-5px);
+  border-color: #f2a93b;
+  box-shadow: 0 8px 25px rgba(242, 169, 59, 0.25);
 }
 
 .dish-img-container {
@@ -571,27 +545,27 @@ body {
 }
 
 .dish-img-container img {
-  transition: transform 0.4s ease, filter 0.4s ease;
+  transition:
+    transform 0.4s ease,
+    filter 0.4s ease;
 }
 
-/* Enlarge and illuminate the image on hover */
 .dish-card:hover .dish-img-container img {
-  transform: scale(1.08); /* Smoothly enlarge the image */
-  filter: brightness(1.1) drop-shadow(0 0 10px rgba(242, 169, 59, 0.4)); /* Add a golden glow to the images */
+  transform: scale(1.08);
+  filter: brightness(1.1) drop-shadow(0 0 10px rgba(242, 169, 59, 0.4));
 }
 
-
-/* 2. Glow effects for the order form section */
 .order-section {
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  transition:
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
 }
 
 .order-section:hover {
   border-color: #f2a93b;
-  box-shadow: 0 0 25px rgba(242, 169, 59, 0.2); /* Add a golden glow around the entire form */
+  box-shadow: 0 0 25px rgba(242, 169, 59, 0.2);
 }
 
-/* Golden glow for input fields on focus or hover */
 .order-form input:hover,
 .order-form select:hover,
 .order-form textarea:hover {
@@ -602,179 +576,159 @@ body {
 .order-form select:focus,
 .order-form textarea:focus {
   border-color: #f2a93b;
-  box-shadow: 0 0 12px rgba(242, 169, 59, 0.4); /* Add a golden glow while typing */
+  box-shadow: 0 0 12px rgba(242, 169, 59, 0.4);
 }
 
-
-/* 3. Glow effects for the submit order button */
-.submit-btn {
+.submit-btn,
+.submit-order-btn {
   position: relative;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(242, 169, 59, 0.3); /* Add a subtle permanent glow */
+  box-shadow: 0 4px 15px rgba(242, 169, 59, 0.3);
 }
 
-.submit-btn:hover {
-  background-color: #ffb84d; /* Use a brighter shade of gold */
+.submit-btn:hover,
+.submit-order-btn:hover {
+  background-color: #ffb84d;
   color: #000000;
   transform: translateY(-2px);
-  box-shadow: 0 0 25px rgba(242, 169, 59, 0.8), 0 0 40px rgba(242, 169, 59, 0.4); /* Add a bright glow on hover */
+  box-shadow:
+    0 0 25px rgba(242, 169, 59, 0.8),
+    0 0 40px rgba(242, 169, 59, 0.4);
 }
 
-
-
-/*CHEFS*/
 #sec3 {
-    width: 100%;
-    background-color: #0b0f19; /* Elegant dark background similar to the original design */
-    padding: 50px 0;
+  width: 100%;
+  background-color: #0b0f19;
+  padding: 50px 0;
 }
-/* header */
 .section-header {
-    width: 85%;
-    margin: auto;
-    margin-bottom: 30px;
+  width: 85%;
+  margin: auto;
+  margin-bottom: 30px;
 }
 
 .title-with-icon {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
 
 .title-with-icon i {
-    font-size: 32px;
-    color: #e59866;
+  font-size: 32px;
+  color: #e59866;
 }
 
 .section-header h2 {
-    color: #ffffff;
-    font-size: 28px;
-    margin: 0;
-    font-weight: bold;
+  color: #ffffff;
+  font-size: 28px;
+  margin: 0;
+  font-weight: bold;
 }
 
 .section-header p {
-    color: #9ca3af;
-    font-size: 14px;
-    margin: 8px 0 0 45px; 
+  color: #9ca3af;
+  font-size: 14px;
+  margin: 8px 0 0 45px;
 }
 
-
-
-
-/* Chefs section */
-.chefs {
-    width: 85%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; 
-    margin: auto;
-    gap: 15px;
+.chef {
+  height: 100%;
+  background-color: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
 }
 
-/* Individual chef card */
-.chefs .chef {
-    width: 18%;
-    background-color: #111827; 
-    border: 1px solid #1f2937; 
-    border-radius: 12px;
-    padding: 12px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease;
+.chef:hover {
+  transform: translateY(-5px);
 }
 
-.chefs .chef:hover {
-    transform: translateY(-5px);
+.chef img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.chefs .chef img {
-    width: 100%;
-    /* height: 180px; */
-    object-fit: cover;
-    border-radius: 8px;
+.chef h3 {
+  font-size: 14px;
+  color: #ffffff;
+  margin: 12px 0 4px 0;
 }
 
-.chefs .chef h3 {
-    font-size: 14px;
-    color: #ffffff;
-    margin: 12px 0 4px 0;
+.chef h4 {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0 0 10px 0;
+  font-weight: normal;
 }
 
-.chefs .chef h4 {
-    font-size: 12px;
-    color: #9ca3af;
-    margin: 0 0 10px 0;
-    font-weight: normal;
+.chef .rating {
+  color: #f59e0b;
+  font-weight: bold;
+  font-size: 13px;
 }
 
-.chefs .chef .rating {
-    color: #f59e0b;
-    font-weight: bold;
-    font-size: 13px;
-}
-
-/* -------------------------------------------------- */
-/* Responsive adjustments for different screen sizes */
-/* -------------------------------------------------- */
-
-/* Tablets and medium-sized devices (below 1024px) */
 @media (max-width: 1024px) {
-    .main-container {
-        flex-direction: column; /* Stack the two sections vertically instead of side by side */
-        align-items: center;
-    }
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .menu-section, 
-    .order-section {
-        width: 100%;
-        max-width: 800px;
-    }
+  .menu-section,
+  .order-section {
+    width: 100%;
+    max-width: 800px;
+  }
 
-    .dishes-grid {
-        grid-template-columns: repeat(2, 1fr); /* Display two cards per row on tablets */
-    }
+  .dishes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-/* Mobile screens (below 768px) */
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
+  body {
+    padding: 10px;
+  }
 
-    .main-container {
-        gap: 15px;
-    }
+  .main-container {
+    gap: 15px;
+  }
 
-    .search-box {
-        width: 100%;
-    }
+  .menu-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
 
-    .search-box input {
-        width: 100%;
-    }
+  .search-box {
+    width: 100%;
+  }
 
-    /* Display dish cards in a single column on small screens */
-    .dishes-grid {
-        grid-template-columns: 1fr;
-    }
+  .search-box input {
+    width: 100%;
+  }
+  .dishes-grid {
+    grid-template-columns: 1fr;
+  }
 
-    /* Reduce section padding and spacing to save space */
-    .menu-section, 
-    .order-section {
-        padding: 15px;
-    }
+  .row-group {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .menu-section,
+  .order-section {
+    padding: 15px;
+  }
 }
 
-/* ===== New section: Chef's Special + Features ===== */
-
-/* Prevent the fixed navbar from covering section headings when navigating to links */
-html { scroll-padding-top: 100px; }
-
-/* Open the chefs dropdown on hover on desktop */
-@media (min-width: 992px) {
-  .custom-navbar .nav-item.dropdown:hover .dropdown-menu { display: block; }
+#about,
+#order {
+  scroll-margin-top: 100px;
 }
 
-/* The body has 30px padding, so remove it here to make the section full-width */
 .special-section {
   max-width: 1400px;
   margin: 40px auto 0;
@@ -933,392 +887,200 @@ html { scroll-padding-top: 100px; }
     padding: 20px;
   }
 }
-/* ===== Responsive ===== */
 
-/* Hide the decorative leaf on smaller screens to prevent it from overlapping text */
-@media (max-width: 1200px) {
-  .special-leaf { display: none; }
-}
-
-/* Tablet layout */
-@media (max-width: 1024px) {
-  .chefs { justify-content: center; }
-  .chefs .chef { width: 31%; }          /* Three chefs per row */
-
-  .feature { width: 50%; border-left: none; }
-}
-
-/* Mobile layout */
-@media (max-width: 768px) {
-  .chefs .chef { width: 45%; }          /* Two chefs per row */
-
-  .special-section,
-  .features { margin: 0 -10px; }
-
-  .special-section { flex-direction: column; gap: 0; }
-  .special-img { width: 100%; height: 220px; }
-  .special-content { padding: 20px; }
-}
-
-@media (max-width: 480px) {
-  .feature { width: 100%; justify-content: flex-start; padding: 14px 20px; }
-}
-
-/* ===== Contact section ===== */
-.contact-section {
-  margin: 0 -30px -30px;
-  padding: 22px 6%;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 20px;
-  background-color: var(--bg-dark);
-  border-top: 1px solid rgba(212, 175, 55, 0.3);
-}
-
-.contact-brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  justify-self: start;
-}
-
-.contact-social {
-  display: flex;
-  gap: 12px;
-}
-
-.contact-social a {
-  width: 38px;
-  height: 38px;
+.order-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(5, 9, 16, 0.85);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0d121d;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-  color: #ffffff;
-  text-decoration: none;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
   transition: all 0.3s ease;
 }
 
-.contact-social a:hover {
-  color: var(--primary-gold);
-  border-color: var(--primary-gold);
-  transform: translateY(-2px);
+.order-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
 
-.contact-thanks {
-  justify-self: end;
-  text-align: right;
+.order-modal-card {
+  background: #0d1522;
+  border: 1px solid #f2a93b;
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(242, 169, 59, 0.3);
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
 }
 
-.contact-thanks p {
+.order-modal-overlay.active .order-modal-card {
+  transform: scale(1);
+}
+
+.modal-icon i {
+  font-size: 50px;
+  color: #f2a93b;
+  margin-bottom: 15px;
+}
+
+.order-modal-card h2 {
+  color: #ffffff;
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.modal-subtitle {
+  color: #8a99ad;
   font-size: 13px;
-  color: var(--text-gray);
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 
-.contact-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--primary-gold);
-  font-size: 12px;
+.modal-customer-info {
+  background: #121c2d;
+  padding: 12px 15px;
+  border-radius: 10px;
+  text-align: left;
+  font-size: 13px;
+  color: #cdd6e0;
+  margin-bottom: 15px;
+  line-height: 1.6;
 }
 
-.contact-line::before {
-  content: "";
-  width: 80px;
-  height: 1px;
-  background-color: var(--primary-gold);
+.modal-items-list {
+  max-height: 160px;
+  overflow-y: auto;
+  background: #121c2d;
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-@media (max-width: 768px) {
-  .contact-section {
-    margin: 0 -10px -10px;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-    padding: 24px 20px;
-  }
-  .contact-brand,
-  .contact-thanks { justify-self: center; text-align: center; }
-}
-
-/* Open the chefs dropdown on hover on desktop */
-@media (min-width: 992px) {
-  .custom-navbar .nav-item.dropdown:hover .dropdown-menu { display: block; }
-}
-
-/* The body has 30px padding, so remove it here to make the section full-width */
-.special-section,
-.features {
-  margin: 0 -30px;
-  background-color: var(--bg-dark);
-}
-
-.special-section {
+.modal-item-row {
   display: flex;
-  align-items: center;
-  gap: 40px;
-  border-top: 1px solid var(--primary-gold);
-  border-bottom: 1px solid var(--primary-gold);
-}
-
-.special-img {
-  width: 45%;
-  height: 230px;
-  object-fit: cover;
-}
-
-.special-content { flex: 1; }
-
-.special-label {
-  color: var(--primary-gold);
-  font-size: 12px;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-}
-
-.special-label i { margin-right: 8px; }
-
-.special-content h2 {
-  font-family: serif;
-  font-size: 32px;
+  justify-content: space-between;
+  font-size: 13px;
   color: #ffffff;
-  margin-bottom: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #1c2b42;
 }
 
-.special-desc {
-  max-width: 340px;
-  font-size: 14px;
-  color: #c3cad5;
-  margin-bottom: 16px;
+.modal-item-row:last-child {
+  border-bottom: none;
 }
 
-.special-action {
+.modal-total-box {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: bold;
+  color: #f2a93b;
+  margin-bottom: 20px;
+  padding: 0 5px;
 }
 
-.special-price {
-  font-family: serif;
-  font-size: 28px;
-  color: var(--primary-gold);
-}
-
-.special-btn {
-  background-color: #f2a93b;
+.modal-close-btn {
+  background: #f2a93b;
   color: #0b111e;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 10px 26px;
+  border: none;
   border-radius: 25px;
+  padding: 12px 35px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
 }
 
-.special-btn:hover { background-color: #ffb84d; }
-
-.special-leaf {
-  width: 220px;
-  margin-right: 40px;
+.modal-close-btn:hover {
+  background: #e09629;
 }
 
-/* Features section */
-.features {
-  display: flex;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--primary-gold);
+.custom-footer {
+  background: #0b111e;
+  padding: 25px 0;
+  color: #fff;
 }
 
-.feature {
-  width: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  padding: 22px 10px;
-  border-left: 1px solid rgba(212, 175, 55, 0.3);
+.footer-logo .logo-img {
+  width: 40px;
+  height: auto;
 }
-
-.feature-icon {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--primary-gold);
-  border-radius: 50%;
-  color: var(--primary-gold);
-}
-
-.feature h3 {
-  font-family: serif;
-  font-size: 15px;
+.footer-logo h3 {
+  font-size: 18px;
+  font-weight: 600;
   color: #ffffff;
-  margin-bottom: 3px;
+  font-family: serif;
+}
+.footer-logo p {
+  font-size: 11px;
+  color: #9ca3af;
 }
 
-.feature p {
-  font-size: 12px;
-  color: var(--text-gray);
+.footer-nav a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s ease;
+}
+.footer-nav a:hover {
+  color: #d4af37;
+}
+.copyright-text {
+  font-size: 11px;
+  color: #6b7280;
 }
 
-/* ===== Responsive ===== */
-
-/* Hide the decorative leaf on smaller screens to prevent it from overlapping text */
-@media (max-width: 1200px) {
-  .special-leaf { display: none; }
-}
-
-/* Tablet layout */
-@media (max-width: 1024px) {
-  .chefs { justify-content: center; }
-  .chefs .chef { width: 31%; }          /* Three chefs per row */
-
-  .feature { width: 50%; border-left: none; }
-}
-
-/* Mobile layout */
-@media (max-width: 768px) {
-  .chefs .chef { width: 45%; }          /* Two chefs per row */
-
-  .special-section,
-  .features { margin: 0 -10px; }
-
-  .special-section { flex-direction: column; gap: 0; }
-  .special-img { width: 100%; height: 220px; }
-  .special-content { padding: 20px; }
-}
-
-@media (max-width: 480px) {
-  .feature { width: 100%; justify-content: flex-start; padding: 14px 20px; }
-}
-
-/* ===== Contact section ===== */
-.contact-section {
-  margin: 0 -30px;
-  padding: 50px 8%;
-  background-color: var(--bg-dark);
-  border-bottom: 1px solid var(--primary-gold);
-}
-
-.contact-card {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 40px;
+.team-card {
   background-color: #111827;
   border: 1px solid #1f2937;
   border-radius: 12px;
-  padding: 30px;
-}
-
-.contact-photo {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--primary-gold);
-  border-radius: 50%;
-  overflow: hidden;
-  color: var(--primary-gold);
-  font-size: 70px;
-}
-
-.contact-photo img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background-color: #111827;
-}
-
-.contact-info { flex: 1; }
-
-.contact-label {
-  color: var(--primary-gold);
-  font-size: 12px;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-}
-
-.contact-info h2 {
-  font-family: serif;
-  font-size: 32px;
-  color: #ffffff;
-  margin-bottom: 8px;
-}
-
-.contact-desc {
-  font-size: 14px;
-  color: var(--text-gray);
-  margin-bottom: 16px;
-}
-
-.contact-list {
-  list-style: none;
-  margin-bottom: 18px;
-}
-
-.contact-list li {
-  font-size: 14px;
-  color: #c3cad5;
-  margin-bottom: 8px;
-  word-break: break-word;
-}
-
-.contact-list i {
-  width: 24px;
-  color: var(--primary-gold);
-}
-
-.contact-social {
-  display: flex;
-  gap: 12px;
-}
-
-.contact-social a {
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  border-radius: 50%;
-  color: #ffffff;
-  text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.contact-social a:hover {
-  color: var(--primary-gold);
-  border-color: var(--primary-gold);
+.team-card:hover {
+  transform: translateY(-5px);
+  border-color: #d4af37;
+  color: #d4af37;
 }
 
-@media (max-width: 768px) {
-  .contact-section { margin: 0 -10px; padding: 40px 20px; }
-  .contact-card { flex-direction: column; text-align: center; padding: 24px 18px; gap: 24px; }
-  .contact-social { justify-content: center; }
+.team-card h4 {
+  color: #d4af37;
+  font-size: 16px;
+  margin-bottom: 4px;
 }
 
-/* Display the chefs dropdown inside the navigation menu on mobile and tablet */
-@media (max-width: 991.98px) {
-  .custom-navbar .dropdown-menu {
-    display: block;
-    position: static;
-    background: transparent;
-    border: 0 !important;
-    box-shadow: none !important;
-    text-align: center;
-  }
+.team-card .role {
+  color: #f3e5ab;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.social-links a {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  border-color: #d4af37;
+  color: #d4af37;
 }
